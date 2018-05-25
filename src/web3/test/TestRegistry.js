@@ -15,7 +15,12 @@ contract('Registry', function(accounts){
 			} catch(error) {
 				assert(true);
 			}
-			
 		});
 	});
+	// it("Should remove an account appropriately.", function(){
+
+	// });
+	// it("Should throw instead of deleting an account that doesn't exist.", function(){
+		
+	// });
 });
