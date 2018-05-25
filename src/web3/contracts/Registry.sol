@@ -11,6 +11,14 @@ contract Registry {
 
 	}
 
+	function isRegistered(address _registrant) 
+	public view returns(bool) {
+		for(uint i; i < registrants.length; i++) {
+			if(registrants[i] == _registrant) return true;
+		}
+		return false;
+	}
+
 	function areAlreadyHomies(address _homie1, address _homie2) 
 	private view returns(bool) { 
 		bool areHomies = false;
@@ -20,12 +28,6 @@ contract Registry {
 		return areHomies;
 	}
 
-	function isAlreadyRegistered(address _registrant) 
-	private view returns(bool) {
-		return isRegistered(_registrant);
-	}
-
-
 	function linkUp(address _homie) 
 	public {
 		require(!areAlreadyHomies(msg.sender, _homie));
@@ -34,15 +36,8 @@ contract Registry {
 
 	function register(address _registrant) 
 	public {
-		require(!isAlreadyRegistered(_registrant));
+		require(!isRegistered(_registrant));
 		registrants.push(_registrant);
 	}
-
-	function isRegistered(address _registrant) 
-	public view returns(bool) {
-		for(uint i; i < registrants.length; i++) {
-			if(registrants[i] == _registrant) return true;
-		}
-		return false;
-	}
+	
 }
