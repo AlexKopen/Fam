@@ -20,7 +20,7 @@ contract Registry {
 	}
 
 	function areAlreadyHomies(address _homie1, address _homie2) 
-	private view returns(bool) { 
+	public view returns(bool) { 
 		bool areHomies = false;
 		for(uint i; i < homies[_homie1].length; i++) {
 			if(homies[_homie1][i] == _homie2) areHomies = true;
@@ -39,5 +39,12 @@ contract Registry {
 		require(!isRegistered(_registrant));
 		registrants.push(_registrant);
 	}
+
+	// function leaveAccount(address _detractor) public senderIsBeneficiary(address _benefactor) {
+	// 	//this will have to first remove the sender from all fams.
+	// 		//removing a member of a fam should trigger the budget's pre-nup logic.
+	// 	//after all pre-nups have been executed successfully...
+	// 	//remove it from the registrants array
+	// }
 	
 }
