@@ -17,10 +17,10 @@ contract('Registry', function(accounts){
 			}
 		});
 	});
-	it("Should remove an account appropriately.", function(){
+	// it("Should remove an account appropriately.", function(){
 
-	});
-	it("Should throw instead of deleting an account that doesn't exist.", function(){
+	// });
+	// it("Should throw instead of deleting an account that doesn't exist.", function(){
 		
-	});
+	// });
 });

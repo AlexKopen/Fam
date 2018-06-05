@@ -23,24 +23,45 @@ library SafeMath {
     }
 }
 
+library SearchableArray {
+	struct Data {
+		address[] elements;
+	}
+
+	//this would take order of n time to complete, and 
+	//could get expensive for big arrays...
+	function contains(Data storage self, address val) 
+	public view
+	returns(bool){
+		for(uint i = 0; i < self.elements.length; i++) {
+			if(self.elements[i] == val) return true;
+		}
+		return false;
+	}
+}
+
 contract Account {
-	address[] participants;
+	uint totalBalance;
+	SearchableArray.Data participants;
 	mapping(address=>uint) balances;
 	uint dailyLimit;
 	uint spentToday;
 
-	function() payable{
+	function() payable {
+		require(SearchableArray.contains(participants, msg.sender));
 		balances[msg.sender] += msg.value;
-	};
+	}
 
-	function send(address _to) public payable returns(bool){
-		require(msg.value <= sub(dailyLimit, spentToday));
+	function send(address _to) 
+	public payable 
+	returns(bool){
+		require(msg.value <= SafeMath.sub(dailyLimit, spentToday));
 		require(balances[msg.sender] >= msg.value);
 		balances[msg.sender] -= msg.value;
 		_to.transfer(msg.value);
-	};
+	}
 
-	function categorizeVendor();
-	function approve(address _to, uint amount);
-	function liquidate();
+	function categorizeVendor(address _vendors) public;
+	function approve(address _to, uint amount) public;
+	function liquidate() public;
 }
